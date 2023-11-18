@@ -181,3 +181,4 @@ if CACHE_ENABLED:
             'LOCATION': os.getenv('LOCATION')
         }
     }
+SECRET_TOKEN_STRIPE = os.getenv('SECRET_TOKEN_STRIPE')
