@@ -10,6 +10,7 @@ from school.permissions import IsModerator, IsOwner
 from school.models import Kurs, Lesson, Pay, Subscription
 from school.serializers import KursSerializer, LessonSerializer, PaySerializer, LessonListSerializer, \
     SubscriptionSerializer
+from school.services import get_payment
 
 
 # Create your views here.
@@ -86,3 +87,11 @@ class PayListAPIView(generics.ListAPIView):
     filterset_fields = ('kurspay', 'lessonpay', 'paymentmethod',)
     ordering_fields = ('datapay',)
     permission_classes = [IsAuthenticated]
+
+class PayCreateAPIView(generics.CreateAPIView):
+    queryset = Pay.objects.all()
+    serializer_class = PaySerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_payment_link(self, obj):
+        return get_payment(obj)
