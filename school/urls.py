@@ -4,7 +4,7 @@ from school.apps import SchoolConfig
 from rest_framework.routers import DefaultRouter
 
 from school.views import KursViewSet, LessonCreateAPIView, LessonListAPIView, LessonRetrieveAPIView, \
-    LessonUpdateAPIView, LessonDestroyAPIView, SubscriptionViewSet
+    LessonUpdateAPIView, LessonDestroyAPIView, SubscriptionViewSet, PayListAPIView
 
 app_name = SchoolConfig.name
 

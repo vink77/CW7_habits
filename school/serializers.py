@@ -1,12 +1,16 @@
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
 from school.models import Kurs, Lesson, Pay, Subscription
+from school.services import get_payment
 from school.validators import Video_Url_Validator
 
 
 class KursSerializer(serializers.ModelSerializer):
     lesson_counter = serializers.SerializerMethodField()
     lessons = serializers.SerializerMethodField()
+
+    def get_payment_link(self, obj):
+        return get_payment(obj)
     class Meta:
         model = Kurs
         fields ='__all__'
