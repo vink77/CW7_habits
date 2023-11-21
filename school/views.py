@@ -86,12 +86,18 @@ class PayListAPIView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ('kurspay', 'lessonpay', 'paymentmethod',)
     ordering_fields = ('datapay',)
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
+
 
 class PayCreateAPIView(generics.CreateAPIView):
+
     queryset = Pay.objects.all()
+    print("**********************  555  **   ",queryset)
+
     serializer_class = PaySerializer
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get_payment_link(self, obj):
         return get_payment(obj)
