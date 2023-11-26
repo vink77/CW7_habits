@@ -11,6 +11,7 @@ from school.models import Kurs, Lesson, Pay, Subscription
 from school.serializers import KursSerializer, LessonSerializer, PaySerializer, LessonListSerializer, \
     SubscriptionSerializer
 from school.services import get_payment
+from school.tasks import kurs_update_info
 
 
 # Create your views here.
@@ -19,6 +20,10 @@ class KursViewSet(viewsets.ModelViewSet):
     queryset = Kurs.objects.all()
     pagination_class = LessonPaginator
 
+    def kurs_update(self, request):
+        kurs = self.get_object()
+        kurs_update_info.delay(kurs.id)
+        return super().update(request)
     def get_permissions(self):
         action_permissions = {
             'retrieve': [IsOwner | IsModerator | IsAdminUser],
