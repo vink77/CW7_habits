@@ -1,26 +1,19 @@
 from django.urls import path
 
-from school.apps import SchoolConfig
+from habits.apps import HabitsConfig
 from rest_framework.routers import DefaultRouter
 
-from school.views import KursViewSet, LessonCreateAPIView, LessonListAPIView, LessonRetrieveAPIView, \
-    LessonUpdateAPIView, LessonDestroyAPIView, SubscriptionViewSet, PayListAPIView, PayCreateAPIView
+from habits.views import HabitListAPIView, HabitPublicListAPIView, HabitCreateAPIView, HabitRetrieveAPIView, \
+    HabitUpdateAPIView, HabitDestroyAPIView
 
-app_name = SchoolConfig.name
-
-router = DefaultRouter()
-router.register(r'kurs', KursViewSet, basename='kurs')
-router.register(r'subscription', SubscriptionViewSet, basename='subscription')
-
-
+app_name = HabitsConfig.name
 
 urlpatterns =[
-    path('lesson/create/',LessonCreateAPIView.as_view(), name='lesson_create'),
-    path('lesson/', LessonListAPIView.as_view(), name='lesson_list'),
-    path('lesson/<int:pk>/', LessonRetrieveAPIView.as_view(), name='lesson_get'),
-    path('lesson/update/<int:pk>/', LessonUpdateAPIView.as_view(), name='lesson_update'),
-    path('lesson/delete/<int:pk>/', LessonDestroyAPIView.as_view(), name='lesson_delete'),
-    path('pay/create/<int:pk>', PayCreateAPIView.as_view(), name='pay_create'),
-    path('pay/', PayListAPIView.as_view(), name='pay_list'),
+                 path("habits/", HabitListAPIView.as_view(), name="habits_list"),
+                 path("habits/publiclist/", HabitPublicListAPIView.as_view(), name="habits_publiclist"),
+                 path("habits/create/", HabitCreateAPIView.as_view(), name="habits_create"),
+                 path("habits/<int:pk>/detail/", HabitRetrieveAPIView.as_view(), name="habits_detail"),
+                 path("habits/<int:pk>/update/", HabitUpdateAPIView.as_view(), name="habits_update"),
+                 path("habits/<int:pk>/delete/", HabitDestroyAPIView.as_view(), name="habits_delete"),
 
-             ] + router.urls
+             ]
